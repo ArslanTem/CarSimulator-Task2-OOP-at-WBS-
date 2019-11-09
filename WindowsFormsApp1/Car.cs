@@ -32,10 +32,12 @@ namespace WindowsFormsApp1
             this.engine = newEngine;
         }
 
-        public void Go(double howManyKm, PictureBox pb1)
+        public void Go(double howManyKm, PictureBox pb1, Label counter)
         {
             int X = pb1.Location.X;
             int Y = pb1.Location.Y;
+            int tempRange = (int)howManyKm;
+            int t = 0;
             while (true)
             {
                 this.engine.Work();
@@ -49,6 +51,9 @@ namespace WindowsFormsApp1
                 xCoo -= intervalOffset;                            //Substract Offset in order to calculate next Point
                 yCoo = pb1.Location.Y;           //get yCoordinate of PictureBox
                 xCooNew = ((xCoo + 1) % (interval));               //calculate new xCoordinate of PictureBox
+                counter.Text = string.Format($"{t} km out of {tempRange}");
+                counter.Update();
+                t++;
                 pb1.Location = new Point((xCooNew + intervalOffset), yCoo);
             }
             //Console.WriteLine("\nHere I am");
